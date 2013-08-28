@@ -15,7 +15,7 @@
 	// Add new functions to the lodash global and apply it later to the prototype
 	var _ = window._;
 
-	_.assign(_, {
+	_.extend(_, {
 
 		/**
 		 * Empty the collection.
@@ -166,13 +166,13 @@
 	// Loop over each collection and extend the prototypes
 	var a, b, c, probe, proto, func, slice = Array.prototype.slice;
 
-	for (a = 0; probe = probes[a]; a++) {
+	for (a = 0; (probe = probes[a]); a++) {
 
 		// Loop over each prototype
-		for (b = 0; proto = probe[0][b]; b++) {
+		for (b = 0; (proto = probe[0][b]); b++) {
 
 			// Loop over each function
-			for (c = 0; func = probe[1][c]; c++) {
+			for (c = 0; (func = probe[1][c]); c++) {
 
 				// Skip if the function already exists on the prototype
 				// We don't wont to cause collisions with built-ins or user defined
@@ -183,14 +183,14 @@
 				// Extend the prototype by calling lodash in a closure
 				// Prepend the "this" value to the beginning of the arguments
 				// This should allow for method chaining
-				proto.prototype[func] = (function(func) {
-					return function() {
+				(function(func) {
+					proto.prototype[func] = function() {
 						var args = slice.call(arguments) || [];
 							args.unshift(this);
 
 						return _[func].apply(this, args);
-					}
-				})(func);
+					};
+				}(func));
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 {
-	"name": "Probe",
 	"version": "0.0.0",
-	"main": "probe.js",
+	"name": "Probe",
+	"main": "build/probe.min.js",
 	"ignore": [
 		".*"
 	],
