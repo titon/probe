@@ -3,10 +3,15 @@
 	"name": "Probe",
 	"main": "build/probe.min.js",
 	"ignore": [
-		".*"
+		".*",
+		"*.md",
+		"src",
+		"Gruntfile.js",
+		"package.json"
 	],
 	"devDependencies": {
 		"lodash": "*",
-		"underscore": "*"
+		"underscore": "*",
+		"probe": "*"
 	}
 }
