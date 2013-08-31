@@ -173,10 +173,20 @@
 
 			// Loop over each function
 			for (c = 0; (func = probe[1][c]); c++) {
+				if (!_[func]) {
+					continue;
+				}
 
 				// Skip if the function already exists on the prototype
 				// We don't wont to cause collisions with built-ins or user defined
-				if (!_[func] || proto.prototype[func] && typeof proto.prototype[func] === 'function') {
+				if (proto[func] || proto.prototype[func]) {
+					continue;
+				}
+
+				// Objects can only use static methods
+				// Applying to the prototype disrupts object literals
+				if (proto === Object) {
+					proto[func] = _[func];
 					continue;
 				}
 

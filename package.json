@@ -1,7 +1,7 @@
 {
 	"version": "0.0.0",
 	"name": "Probe",
-	"description": "Extends the JS prototype with Lodash (or Underscore) methods.",
+	"description": "Extends the JS prototype with Lo-Dash (or Underscore) methods.",
 	"keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
 	"copyright": "Copyright 2010-2013, The Titon Project",
 	"homepage": "http://titon.io",
