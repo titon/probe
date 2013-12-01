@@ -1,4 +1,4 @@
-# Titon Probe v0.2.0 #
+# Titon Probe v0.3.0 #
 
 Extends the JS native prototypes with Lo-Dash (or Underscore) methods.
 
