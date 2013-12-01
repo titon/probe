@@ -135,19 +135,34 @@
 		// Array
 		[
 			[Array],
-			['compact', 'difference', 'drop', 'findIndex', 'first', 'flatten', 'head', 'indexOf', 'initial', 'intersection', 'last', 'lastIndexOf', 'range', 'rest', 'sortedIndex', 'tail', 'take', 'union', 'uniq', 'unique', 'unzip', 'without', 'zip']
+			[
+				'compact', 'difference', 'drop', 'findIndex', 'findLastIndex', 'first', 'flatten', 'head', 'indexOf', 'initial', 'intersection', 'last', 'lastIndexOf', 'pull',
+				'range', 'remove', 'rest', 'sortedIndex', 'tail', 'take', 'union', 'uniq', 'unique', 'unzip', 'without', 'xor', 'zip', 'zipObject'
+			]
 		// Collections
 		], [
 			[Array, Object, String],
-			['all', 'any', 'at', 'collect', 'contains', 'countBy', 'detect', 'empty', 'each', 'every', 'filter', 'find', 'findWhere', 'foldl', 'foldr', 'forEach', 'groupBy', 'include', 'inject', 'invoke', 'map', 'max', 'min', 'pluck', 'reduce', 'reduceRight', 'reject', 'select', 'shuffle', 'size', 'some', 'sortBy', 'toArray', 'where']
+			[
+				'all', 'any', 'at', 'collect', 'contains', 'countBy', 'detect', 'empty', 'each', 'eachRight', 'every', 'filter', 'find', 'findLast', 'findWhere', 'foldl', 'foldr', 'forEach', 'forEachRight',
+				'groupBy', 'include', 'indexBy', 'inject', 'invoke', 'map', 'max', 'min', 'pluck', 'reduce', 'reduceRight', 'reject', 'sample', 'select', 'shuffle', 'size', 'some', 'sortBy', 'toArray', 'where',
+				'constant'
+			]
 		// Functions
+		// Unsupported: after, bindAll, bindKey, wrap
 		], [
 			[Function],
-			['bind', 'compose', 'createCallback', 'debounce', 'defer', 'delay', 'memoize', 'once', 'partial', 'partialRight', 'throttle']
+			[
+				'bind', 'compose', 'curry', 'debounce', 'defer', 'delay', 'memoize', 'once', 'partial', 'partialRight', 'throttle',
+				'createCallback'
+			]
 		// Objects
+		// Unsupported: create
 		], [
 			[Object],
-			['assign', 'defaults', 'extend', 'findKey', 'forIn', 'forOwn', 'functions', 'has', 'invert', 'keys', 'merge', 'methods', 'omit', 'pairs', 'pick', 'transform', 'values']
+			[
+				'assign', 'clone', 'cloneDeep', 'defaults', 'extend', 'findKey', 'findLastKey', 'forIn', 'forInRight', 'forOwn', 'forOwnRight', 'functions', 'has',
+				'invert', 'keys', 'mapValues', 'merge', 'methods', 'mixin', 'omit', 'pairs', 'pick', 'property', 'result', 'transform', 'values'
+			]
 		// Strings
 		], [
 			[String],
@@ -155,7 +170,7 @@
 		// Numbers
 		], [
 			[Number],
-			['times', 'limit', 'round', 'toFloat', 'toInt']
+			['times', 'limit', 'round', 'toFloat', 'toInt', 'parseInt']
 		// All
 		], [
 			[Array, Object, String, Number],

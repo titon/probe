@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			},
 			build: {
 				files: {
-					'build/probe.min.js': 'src/probe.js'
+					'dist/probe.min.js': 'src/probe.js'
 				}
 			}
 		}
