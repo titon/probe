@@ -1,14 +1,14 @@
 {
-	"version": "0.3.0",
-	"name": "Probe",
-	"description": "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
-	"keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
-	"copyright": "Copyright 2010-2013, The Titon Project",
-	"homepage": "http://titon.io",
-	"licenses": [
+	"version"     : "0.3.0",
+	"name"        : "Probe",
+	"description" : "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
+	"keywords"    : ["probe", "titon", "prototype", "lodash", "underscore"],
+	"copyright"   : "Copyright 2010-2013, The Titon Project",
+	"homepage"    : "http://titon.io",
+	"licenses"    : [
 		{
-			"type": "BSD-2",
-			"url": "https://github.com/titon/probe/blob/master/license.md"
+			"type" : "BSD-2",
+			"url"  : "https://github.com/titon/probe/blob/master/license.md"
 		}
 	],
 	"author": {
@@ -16,12 +16,16 @@
 		"url": "http://milesj.me"
 	},
 	"repository": {
-		"type": "git",
-		"url": "https://github.com/titon/probe"
+		"type" : "git",
+		"url"  : "https://github.com/titon/probe"
 	},
 	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-uglify": "*",
-		"grunt-contrib-jshint": "*"
-	}
+		"grunt"                : "*",
+		"grunt-contrib-uglify" : "*",
+		"grunt-contrib-jshint" : "*"
+	},
+	"dependencies": {
+		"lodash": "*"
+	},
+	"main": "./src/probe.js"
 }

@@ -4,16 +4,24 @@
  * @link		http://titon.io
  */
 
-(function(window) {
+(function(root) {
 	'use strict';
 
+	var _,
+		isNode = typeof module !== 'undefined' && module.exports;
+
+	// If in node.js, load lodash
+	if (isNode) {
+		root._ = require('lodash');
+	}
+
 	// Exit early if lodash or underscore does not exist
-	if (typeof window._ === 'undefined') {
+	if (typeof root._ === 'undefined') {
 		return;
 	}
 
 	// Add new functions to the lodash global and apply it later to the prototype
-	var _ = window._;
+	_ = root._;
 
 	_.extend(_, {
 
@@ -219,4 +227,8 @@
 			}
 		}
 	}
-})(window);
+
+	if (isNode) {
+		exports._ = _;
+	}
+})(this);
