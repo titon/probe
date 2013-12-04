@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 				loopfunc: true
 			},
 			build: {
-				src: ['src/probe.js']
+				src: ['src/lodash-probe.js']
 			}
 		},
 
@@ -27,17 +27,26 @@ module.exports = function(grunt) {
 			},
 			build: {
 				files: {
-					'dist/probe.min.js': 'src/probe.js'
+					'dist/lodash-probe.min.js': 'src/lodash-probe.js'
 				}
 			}
+		},
+
+		jslint: {
+			src: [
+				'src/lodash-probe.js'
+			]
 		}
+
 	});
 
 	// Load plugins
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-jslint');
 
 	// Register tasks
 	grunt.registerTask('validate', ['jshint']);
+	grunt.registerTask('lint', ['jslint']);
 	grunt.registerTask('default', ['jshint', 'uglify']);
 };
