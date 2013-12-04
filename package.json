@@ -1,5 +1,5 @@
 {
-	"version"     : "0.3.0",
+	"version"     : "0.3.1",
 	"name"        : "lodash-probe",
 	"description" : "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
 	"keywords"    : ["probe", "titon", "prototype", "lodash", "underscore"],
@@ -27,5 +27,5 @@
 	"dependencies": {
 		"lodash": "*"
 	},
-	"main": "./src/probe.js"
+	"main": "./src/lodash-probe.js"
 }

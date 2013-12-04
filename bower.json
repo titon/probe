@@ -1,6 +1,6 @@
 {
-	"version": "0.3.0",
-	"name": "Probe",
+	"version": "0.3.1",
+	"name": "lodash-probe",
 	"description": "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
 	"main": "dist/probe.min.js",
 	"ignore": [
@@ -13,6 +13,6 @@
 	"devDependencies": {
 		"lodash": "*",
 		"underscore": "*",
-		"probe": "*"
+		"lodash-probe": "*"
 	}
 }

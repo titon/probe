@@ -229,6 +229,6 @@
 	}
 
 	if (isNode) {
-		exports._ = _;
+		(module.exports = _)._ = _;
 	}
 })(this);

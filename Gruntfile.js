@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 				loopfunc: true
 			},
 			build: {
-				src: ['src/probe.js']
+				src: ['src/lodash-probe.js']
 			}
 		},
 
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			},
 			build: {
 				files: {
-					'dist/probe.min.js': 'src/probe.js'
+					'dist/lodash-probe.min.js': 'src/lodash-probe.js'
 				}
 			}
 		}
