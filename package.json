@@ -1,6 +1,6 @@
 {
 	"version"     : "0.3.0",
-	"name"        : "Probe",
+	"name"        : "lodash-probe",
 	"description" : "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
 	"keywords"    : ["probe", "titon", "prototype", "lodash", "underscore"],
 	"copyright"   : "Copyright 2010-2013, The Titon Project",
