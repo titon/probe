@@ -22,10 +22,10 @@
 		var p, f, proto, func;
 
 		// Loop over each prototype
-		for (p = 0; (proto = protos); p++) {
+		for (p = 0; (proto = protos[p]); p++) {
 
 			// Loop over each function
-			for (f = 0; (func = funcs); f++) {
+			for (f = 0; (func = funcs[f]); f++) {
 
 				// Skip if the function already exists on the prototype
 				// We don't wont to cause collisions with built-ins or user defined
