@@ -7,39 +7,38 @@
 (function(root) {
 	'use strict';
 
-	var slice = Array.prototype.slice,
+	var vendor,
+		slice = Array.prototype.slice,
 		isNode = (typeof module !== 'undefined' && module.exports);
 
 	/**
 	 * Loop over each collection and extend the prototypes.
 	 *
 	 * @param {Object} vendor
-	 * @param {Array} probes
+	 * @param {Array} protos
+	 * @param {Array} funcs
 	 */
-	function mapPrototype(vendor, probes) {
-		var a, b, c, probe, proto, func;
+	function mapPrototypes(vendor, protos, funcs) {
+		var p, f, proto, func;
 
-		for (a = 0; (probe = probes[a]); a++) {
+		// Loop over each prototype
+		for (p = 0; (proto = protos); p++) {
 
-			// Loop over each prototype
-			for (b = 0; (proto = probe[0][b]); b++) {
+			// Loop over each function
+			for (f = 0; (func = funcs); f++) {
 
-				// Loop over each function
-				for (c = 0; (func = probe[1][c]); c++) {
+				// Skip if the function already exists on the prototype
+				// We don't wont to cause collisions with built-ins or user defined
+				if (!vendor[func] || proto[func] || proto.prototype[func]) {
+					continue;
+				}
 
-					// Skip if the function already exists on the prototype
-					// We don't wont to cause collisions with built-ins or user defined
-					if (!vendor[func] || proto[func] || proto.prototype[func]) {
-						continue;
-					}
-
-					// Objects can only use static methods
-					// Applying to the prototype disrupts object literals
-					if (proto === Object) {
-						proto[func] = vendor[func];
-					} else {
-						extendPrototype.call(this, vendor, proto, func);
-					}
+				// Objects can only use static methods
+				// Applying to the prototype disrupts object literals
+				if (proto === Object) {
+					proto[func] = vendor[func];
+				} else {
+					extendPrototype.call(this, vendor, proto, func);
 				}
 			}
 		}
@@ -76,6 +75,16 @@
 		}
 	}
 
+	if (isNode) {
+		exports.mapPrototype = mapPrototypes;
+		exports.extendPrototype = extendPrototype;
+	} else {
+		root.Probe = {
+			mapPrototype: mapPrototypes,
+			extendPrototype: extendPrototype
+		};
+	}
+
 	/**
 	 *----------------------------------------
 	 *		Lo-Dash / Underscore
@@ -92,7 +101,7 @@
 	}
 
 	var stringFunctions = [
-		'escape', 'unescape', 'template', 'uniqueId', 'camelCase', 'slugify', 'capitalize',
+		'escape', 'unescape', 'template', 'uniqueId',
 		// underscore.string
 		'isBlank', 'stripTags', 'capitalize', 'chop', 'clean', 'count', 'chars', 'swapCase', 'escapeHTML', 'unescapeHTML', 'escapeRegExp',
 		'splice', 'insert', 'include', 'join', 'lines', 'reverse', 'startsWith', 'endsWith', 'succ', 'titleize', 'camelize', 'underscored',
@@ -102,52 +111,45 @@
 	];
 
 	if (typeof root._ !== 'undefined') {
-		mapPrototype(root._, [
-			// Array
-			[
-				[Array],
-				[
-					'compact', 'difference', 'drop', 'findIndex', 'findLastIndex', 'first', 'flatten', 'head', 'indexOf', 'initial', 'intersection', 'last', 'lastIndexOf', 'pull',
-					'range', 'remove', 'rest', 'sortedIndex', 'tail', 'take', 'union', 'uniq', 'unique', 'unzip', 'without', 'xor', 'zip', 'zipObject'
-				]
-			// Collections
-			], [
-				[Array, Object, String],
-				[
-					'all', 'any', 'at', 'collect', 'contains', 'countBy', 'detect', 'empty', 'each', 'eachRight', 'every', 'filter', 'find', 'findLast', 'findWhere', 'foldl', 'foldr', 'forEach', 'forEachRight',
-					'groupBy', 'include', 'indexBy', 'inject', 'invoke', 'map', 'max', 'min', 'pluck', 'reduce', 'reduceRight', 'reject', 'sample', 'select', 'shuffle', 'size', 'some', 'sortBy', 'toArray', 'where',
-					'constant'
-				]
-			// Functions
-			// Unsupported: after, bindAll, bindKey, wrap
-			], [
-				[Function],
-				[
-					'bind', 'compose', 'curry', 'debounce', 'defer', 'delay', 'memoize', 'once', 'partial', 'partialRight', 'throttle',
-					'createCallback'
-				]
-			// Objects
-			// Unsupported: create
-			], [
-				[Object],
-				[
-					'assign', 'clone', 'cloneDeep', 'defaults', 'extend', 'findKey', 'findLastKey', 'forIn', 'forInRight', 'forOwn', 'forOwnRight', 'functions', 'has',
-					'invert', 'keys', 'mapValues', 'merge', 'methods', 'mixin', 'omit', 'pairs', 'pick', 'property', 'result', 'transform', 'values'
-				]
-			// Strings
-			], [
-				[String],
-				stringFunctions
-			// Numbers
-			], [
-				[Number],
-				['times', 'limit', 'round', 'toFloat', 'toInt', 'parseInt']
-			// All
-			], [
-				[Array, Object, String, Number],
-				['isEmpty', 'isEqual', 'isUndefined', 'isNull', 'toString', 'valueOf']
-			]
+		vendor = root._;
+
+		// Array
+		mapPrototypes(vendor, [Array], [
+			'compact', 'difference', 'drop', 'findIndex', 'findLastIndex', 'first', 'flatten', 'head', 'indexOf', 'initial', 'intersection', 'last',
+			'lastIndexOf', 'pull', 'range', 'remove', 'rest', 'sortedIndex', 'tail', 'take', 'union', 'uniq', 'unique', 'unzip', 'without', 'xor',
+			'zip', 'zipObject'
 		]);
+
+		// Collections
+		mapPrototypes(vendor, [Array, Object, String], [
+			'all', 'any', 'at', 'collect', 'contains', 'countBy', 'detect', 'each', 'eachRight', 'every', 'filter', 'find', 'findLast', 'findWhere',
+			'foldl', 'foldr', 'forEach', 'forEachRight', 'groupBy', 'include', 'indexBy', 'inject', 'invoke', 'map', 'max', 'min', 'pluck', 'reduce',
+			'reduceRight', 'reject', 'sample', 'select', 'shuffle', 'size', 'some', 'sortBy', 'toArray', 'where',
+			'constant'
+		]);
+
+		// Functions
+		// Unsupported: after, bindAll, bindKey, wrap
+		mapPrototypes(vendor, [Function], [
+			'bind', 'compose', 'curry', 'debounce', 'defer', 'delay', 'memoize', 'once', 'partial', 'partialRight', 'throttle',
+			'createCallback'
+		]);
+
+		// Objects
+		// Unsupported: create
+		mapPrototypes(vendor, [Object], [
+			'assign', 'clone', 'cloneDeep', 'defaults', 'extend', 'findKey', 'findLastKey', 'forIn', 'forInRight', 'forOwn', 'forOwnRight', 'functions', 'has',
+			'invert', 'keys', 'mapValues', 'merge', 'methods', 'mixin', 'omit', 'pairs', 'pick', 'property', 'result', 'transform', 'values'
+		]);
+
+		// Strings
+		mapPrototypes(vendor, [String], stringFunctions);
+
+		// Numbers
+		mapPrototypes(vendor, [Number], ['times', 'parseInt']);
+
+		// All
+		mapPrototypes(vendor, [Array, Object, String, Number], ['isEmpty', 'isEqual', 'isUndefined', 'isNull', 'toString', 'valueOf']);
 	}
 
 	/**
@@ -161,17 +163,13 @@
 	}
 
 	if (typeof root._s !== 'undefined') {
-		mapPrototype(root._s, [
-			// String
-			// Unsupported: toSentence, toSentenceSerial
-			[
-				[String],
-				stringFunctions
-			// Number
-			], [
-				[Number],
-				['numberFormat']
-			]
-		]);
+		vendor = root._s;
+
+		// String
+		// Unsupported: toSentence, toSentenceSerial
+		mapPrototypes(vendor, [String], stringFunctions);
+
+		// Number
+		mapPrototypes(vendor, [Number], ['numberFormat']);
 	}
 })(this);
