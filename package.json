@@ -1,7 +1,7 @@
 {
 	"version": "0.3.0",
 	"name": "titon-probe",
-	"description": "Extends the JS native prototypes with Lo-Dash (or Underscore) methods.",
+	"description": "Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.",
 	"keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
 	"copyright": "Copyright 2010-2013, The Titon Project",
 	"homepage": "http://titon.io",
@@ -23,9 +23,6 @@
 		"grunt": "*",
 		"grunt-contrib-uglify": "*",
 		"grunt-contrib-jshint": "*"
-	},
-	"dependencies": {
-		"lodash": "*"
 	},
 	"main": "./src/probe.js"
 }
