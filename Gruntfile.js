@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 		jshint: {
 			options: {
 				browser: true,
-				loopfunc: true
+				loopfunc: true,
+				validthis: true
 			},
 			build: {
 				src: ['src/probe.js']

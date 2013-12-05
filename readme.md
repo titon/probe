@@ -1,4 +1,4 @@
-# Titon Probe v0.3.0 #
+# Titon Probe v0.4.0 #
 
 Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.
 
