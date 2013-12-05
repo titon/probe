@@ -7,8 +7,7 @@
 (function(root) {
 	'use strict';
 
-	var vendor,
-		slice = Array.prototype.slice,
+	var slice = Array.prototype.slice,
 		isNode = (typeof module !== 'undefined' && module.exports);
 
 	/**
@@ -78,9 +77,9 @@
 	}
 
 	/**
-	 * ----------------------------------------
+	 *----------------------------------------
 	 *		Lo-Dash / Underscore
-	 * ----------------------------------------
+	 *----------------------------------------
 	 */
 
 	if (isNode) {
@@ -92,127 +91,18 @@
 		}
 	}
 
+	var stringFunctions = [
+		'escape', 'unescape', 'template', 'uniqueId', 'camelCase', 'slugify', 'capitalize',
+		// underscore.string
+		'isBlank', 'stripTags', 'capitalize', 'chop', 'clean', 'count', 'chars', 'swapCase', 'escapeHTML', 'unescapeHTML', 'escapeRegExp',
+		'splice', 'insert', 'include', 'join', 'lines', 'reverse', 'startsWith', 'endsWith', 'succ', 'titleize', 'camelize', 'underscored',
+		'dasherize', 'classify', 'humanize', 'trim', 'ltrim', 'rtrim', 'truncate', 'prune', 'words', 'pad', 'lpad', 'rpad', 'lrpad',
+		'sprintf', 'vsprintf', 'toNumber', 'strRight', 'strRightBack', 'strLeft', 'strLeftBack', 'slugify', 'surround', 'quote', 'unquote',
+		'repeat', 'naturalCmp', 'levenshtein', 'toBoolean'
+	];
+
 	if (typeof root._ !== 'undefined') {
-		vendor = root._;
-
-		// Extend with custom methods
-		vendor.extend(vendor, {
-
-			/**
-			 * Empty the collection.
-			 *
-			 * @param {Array|Object|String} collection
-			 * @returns {*}
-			 */
-			empty: function(collection) {
-				if (_.isArray(collection)) {
-					collection = [];
-				} else if (_.isString(collection)) {
-					collection = '';
-				} else {
-					collection = {};
-				}
-
-				return collection;
-			},
-
-			/**
-			 * Convert a string to a camel case form by remove all non-alphanumeric characters
-			 * and capitalizing the first character of each word.
-			 *
-			 * @param {String} string
-			 * @returns {String}
-			 */
-			camelCase: function(string) {
-				return string.replace(/\W\D/g, function(match){
-					return match.charAt(1).toUpperCase();
-				});
-			},
-
-			/**
-			 * Capitalize the first character in all words, so long as that word follows a boundary.
-			 *
-			 * @param {String} string
-			 * @returns {String}
-			 */
-			capitalize: function(string) {
-				return string.replace(/\b[a-z]/g, function(match){
-					return match.toUpperCase();
-				});
-			},
-
-			/**
-			 * Convert a camel cased or spaced out string to a slug based hyphenated form.
-			 * This will remove all non-alphanumeric characters.
-			 *
-			 * @param {String} string
-			 * @returns {String}
-			 */
-			slugify: function(string) {
-				return string
-					// Lowercase camel form
-					.replace(/[A-Z]/g, function(match){
-						return ' ' + match.charAt(0);
-					})
-					// Remove excess whitespace
-					.replace(/\s{2,}/g, ' ')
-					// Replace non-alphanumeric
-					.replace(/[^A-Za-z0-9_-]/g, '-')
-					// Trim dashes
-					.replace(/^-+|-+$/, '')
-					// Lowercase
-					.toLowerCase();
-			},
-
-			/**
-			 * Limit a number between minimum and maximum boundaries.
-			 *
-			 * @param {Number} number
-			 * @param {Number} min
-			 * @param {Number} max
-			 * @returns {Number}
-			 */
-			limit: function(number, min, max){
-				return Math.min(max, Math.max(min, number));
-			},
-
-			/**
-			 * Round a number using a precision.
-			 *
-			 * @param {Number} number
-			 * @param {Number} precision
-			 * @returns {Number}
-			 */
-			round: function(number, precision) {
-				precision = Math.pow(10, precision || 0).toFixed(precision < 0 ? -precision : 0);
-
-				return Math.round(number * precision) / precision;
-			},
-
-			/**
-			 * Convert a number to a float.
-			 *
-			 * @param {Number} number
-			 * @returns {Number}
-			 */
-			toFloat: function(number) {
-				return parseFloat(number);
-			},
-
-			/**
-			 * Convert a float to a number.
-			 *
-			 * @param {Number} number
-			 * @param {Number} base
-			 * @returns {Number}
-			 */
-			toInt: function(number, base) {
-				return parseInt(number, base || 10);
-			}
-		});
-
-		// Mapping of functions and prototypes
-		mapPrototype(vendor, [
+		mapPrototype(root._, [
 			// Array
 			[
 				[Array],
@@ -247,7 +137,7 @@
 			// Strings
 			], [
 				[String],
-				['escape', 'unescape', 'template', 'uniqueId', 'camelCase', 'slugify', 'capitalize']
+				stringFunctions
 			// Numbers
 			], [
 				[Number],
@@ -256,6 +146,31 @@
 			], [
 				[Array, Object, String, Number],
 				['isEmpty', 'isEqual', 'isUndefined', 'isNull', 'toString', 'valueOf']
+			]
+		]);
+	}
+
+	/**
+	 *----------------------------------------
+	 *		Underscore.String
+	 *----------------------------------------
+	 */
+
+	if (isNode && moduleExists('underscore.string')) {
+		exports._s = root._s = require('underscore.string');
+	}
+
+	if (typeof root._s !== 'undefined') {
+		mapPrototype(root._s, [
+			// String
+			// Unsupported: toSentence, toSentenceSerial
+			[
+				[String],
+				stringFunctions
+			// Number
+			], [
+				[Number],
+				['numberFormat']
 			]
 		]);
 	}
