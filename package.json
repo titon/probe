@@ -1,33 +1,33 @@
 {
-	"version": "0.4.0",
-	"name": "titon-probe",
-	"description": "Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.",
-	"keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
-	"copyright": "Copyright 2010-2013, The Titon Project",
-	"homepage": "http://titon.io",
-	"licenses": [
-		{
-			"type" : "BSD-2",
-			"url"  : "https://github.com/titon/probe/blob/master/license.md"
-		}
-	],
-	"author": {
-		"name": "Miles Johnson",
-		"url": "http://milesj.me"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/titon/probe"
-	},
-	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-uglify": "*",
-		"grunt-contrib-jshint": "*",
-		"mocha": "*",
-		"chai": "*",
-		"lodash": "*",
-		"underscore": "*",
-		"underscore.string": "*"
-	},
-	"main": "./src/probe.js"
+    "version": "0.4.0",
+    "name": "titon-probe",
+    "description": "Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.",
+    "keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
+    "copyright": "Copyright 2010-2013, The Titon Project",
+    "homepage": "http://titon.io",
+    "licenses": [
+        {
+            "type" : "BSD-2",
+            "url"  : "https://github.com/titon/probe/blob/master/license.md"
+        }
+    ],
+    "author": {
+        "name": "Miles Johnson",
+        "url": "http://milesj.me"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/titon/probe"
+    },
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-jshint": "*",
+        "mocha": "*",
+        "chai": "*",
+        "lodash": "*",
+        "underscore": "*",
+        "underscore.string": "*"
+    },
+    "main": "./src/probe.js"
 }
