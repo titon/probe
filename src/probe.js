@@ -76,11 +76,11 @@
 	}
 
 	if (isNode) {
-		exports.mapPrototype = mapPrototypes;
+		exports.mapPrototypes = mapPrototypes;
 		exports.extendPrototype = extendPrototype;
 	} else {
 		root.Probe = {
-			mapPrototype: mapPrototypes,
+			mapPrototypes: mapPrototypes,
 			extendPrototype: extendPrototype
 		};
 	}
@@ -160,6 +160,10 @@
 
 	if (isNode && moduleExists('underscore.string')) {
 		exports._s = root._s = require('underscore.string');
+	}
+
+	if (typeof root._ !== 'undefined' && typeof root._.str !== 'undefined') {
+		root._s = root._.str;
 	}
 
 	if (typeof root._s !== 'undefined') {

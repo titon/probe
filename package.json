@@ -22,7 +22,12 @@
 	"devDependencies": {
 		"grunt": "*",
 		"grunt-contrib-uglify": "*",
-		"grunt-contrib-jshint": "*"
+		"grunt-contrib-jshint": "*",
+		"mocha": "*",
+		"chai": "*",
+		"lodash": "*",
+		"underscore": "*",
+		"underscore.string": "*"
 	},
 	"main": "./src/probe.js"
 }

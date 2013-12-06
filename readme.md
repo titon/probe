@@ -60,3 +60,11 @@ Include the scripts in your application. Probe must come after Lo-Dash.
 <script src="bower_components/lodash/dist/lodash.min.js" type="text/javascript"></script>
 <script src="bower_components/probe/dist/probe.min.js" type="text/javascript"></script>
 ```
+
+### Running Tests ###
+
+To validate Probe is working with a specific vendor, run the following command from the project root.
+
+```
+mocha -R spec --recursive
+```

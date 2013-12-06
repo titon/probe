@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Titon Probe Tests - Lo-Dash</title>
+    <link href="../node_modules/mocha/mocha.css" rel="stylesheet">
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/lodash/dist/lodash.min.js"></script>
+    <script>mocha.setup('tdd');</script>
+    <script src="../src/probe.js"></script>
+    <script src="cases/lodash.js"></script>
+</head>
+<body>
+    <div id="mocha"></div>
+
+    <script>
+        mocha.checkLeaks();
+        mocha.globals([]);
+        mocha.run();
+    </script>
+</body>
+</html>
