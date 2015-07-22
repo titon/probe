@@ -9,7 +9,8 @@
 
     var vendor,
         slice = Array.prototype.slice,
-        isNode = (typeof module !== 'undefined' && module.exports);
+        isNode = (typeof module !== 'undefined' && module.exports),
+        methodPrefix = '_';  //prefix used for methods added to native prototypes
 
     /**
      * Loop over each collection and extend the prototypes.
@@ -36,7 +37,7 @@
                 // Objects can only use static methods
                 // Applying to the prototype disrupts object literals
                 if (proto === Object) {
-                    proto[func] = vendor[func];
+                    Object.defineProperty(proto, methodPrefix + func, {value:vendor[func], enumerable:false, configurable:true});
                 } else {
                     extendPrototype.call(this, vendor, proto, func);
                 }
@@ -53,12 +54,16 @@
      * @param {Function} func
      */
     function extendPrototype(vendor, proto, func) {
-        proto.prototype[func] = function() {
-            var args = slice.call(arguments) || [];
-                args.unshift(this);
-
-            return vendor[func].apply(this, args);
-        };
+        Object.defineProperty(proto.prototype, methodPrefix + func, {
+            value: function() {
+                var args = slice.call(arguments) || [];
+                    args.unshift(this);
+    
+                return vendor[func].apply(this, args);
+            },
+            enumerable:false,
+            configurable:true
+        });
     }
 
     /**
