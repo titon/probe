@@ -1,5 +1,5 @@
 {
-    "version": "0.4.1",
+    "version": "0.4.2",
     "name": "probe",
     "description": "Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.",
     "main": "dist/probe.min.js",

@@ -30,14 +30,14 @@
 
                 // Skip if the function already exists on the prototype
                 // We don't wont to cause collisions with built-ins or user defined
-                if (!vendor[func] || proto[func] || proto.prototype[func]) {
+                if (!vendor[func] || proto[methodPrefix + func] || proto.prototype[methodPrefix + func]) {
                     continue;
                 }
 
                 // Objects can only use static methods
                 // Applying to the prototype disrupts object literals
                 if (proto === Object) {
-                    Object.defineProperty(proto, methodPrefix + func, {value:vendor[func], enumerable:false, configurable:true});
+                    proto[methodPrefix + func] = vendor[func];
                 } else {
                     extendPrototype.call(this, vendor, proto, func);
                 }
@@ -54,16 +54,12 @@
      * @param {Function} func
      */
     function extendPrototype(vendor, proto, func) {
-        Object.defineProperty(proto.prototype, methodPrefix + func, {
-            value: function() {
-                var args = slice.call(arguments) || [];
-                    args.unshift(this);
-    
-                return vendor[func].apply(this, args);
-            },
-            enumerable:false,
-            configurable:true
-        });
+        proto.prototype[methodPrefix + func] = function() {
+            var args = slice.call(arguments) || [];
+                args.unshift(this);
+
+            return vendor[func].apply(this, args);
+        };
     }
 
     /**
@@ -83,10 +79,12 @@
     if (isNode) {
         exports.mapPrototypes = mapPrototypes;
         exports.extendPrototype = extendPrototype;
+        exports.methodPrefix = methodPrefix;
     } else {
         root.Probe = {
             mapPrototypes: mapPrototypes,
-            extendPrototype: extendPrototype
+            extendPrototype: extendPrototype,
+            methodPrefix: methodPrefix
         };
     }
 

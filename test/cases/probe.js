@@ -24,21 +24,24 @@ describe('Probe', function() {
         probe = window.Probe;
     }
 
-    it('should extend the prototype with vendor function', function() {
-        expect(Number.prototype.foo).to.be.an('undefined');
-        expect(Number.prototype.bar).to.be.an('undefined');
+    var prefix = probe.methodPrefix,
+        foo = prefix + 'foo',
+        bar = prefix + 'bar';
+
+    it('should extend the prototype with vendor function', function() {        
+        expect(Number.prototype[foo]).to.be.an('undefined');
+        expect(Number.prototype[bar]).to.be.an('undefined');
 
         probe.mapPrototypes(vendor, [Number], ['foo', 'bar']);
 
-        expect(Number.prototype.foo).to.be.an('function');
-        expect(Number.prototype.bar).to.be.an('undefined');
+        expect(Number.prototype[foo]).to.be.an('function');
+        expect(Number.prototype[bar]).to.be.an('undefined');
     });
 
     it('should not overwrite previous functions with the same name', function() {
-        var string = {
-            indexOf: function(str, char) {
-                return 1337;
-            }
+        var string = {};
+        string[prefix + 'indexOf'] = function(str, char) {
+            return 1337;
         };
 
         probe.mapPrototypes(string, [String], ['indexOf']);
@@ -47,24 +50,24 @@ describe('Probe', function() {
     });
 
     it('should not apply to the Object prototype', function() {
-        expect(Object.foo).to.be.an('undefined');
-        expect(Object.prototype.foo).to.be.an('undefined');
+        expect(Object[foo]).to.be.an('undefined');
+        expect(Object.prototype[foo]).to.be.an('undefined');
 
         probe.mapPrototypes(vendor, [Object], ['foo']);
 
-        expect(Object.foo).to.be.an('function');
-        expect(Object.prototype.foo).to.be.an('undefined');
+        expect(Object[foo]).to.be.an('function');
+        expect(Object.prototype[foo]).to.be.an('undefined');
     });
 
     it('should pass the type as the first argument', function() {
         probe.mapPrototypes(vendor, [Number], ['pass']);
 
-        expect((10).pass(22)).to.equal(220);
+        expect((10)[prefix + 'pass'](22)).to.equal(220);
     });
 
     it('should allow for chaining', function() {
         probe.mapPrototypes(vendor, [Number], ['chain']);
 
-        expect((5).pass(8).chain(12)).to.equal(52);
+        expect((5)[prefix + 'pass'](8)[prefix + 'chain'](12)).to.equal(52);
     });
 });

@@ -1,5 +1,5 @@
 {
-    "version": "0.4.1",
+    "version": "0.4.2",
     "name": "titon-probe",
     "description": "Extends the native prototypes with functions from Lo-Dash, Underscore, or another vendor.",
     "keywords": ["probe", "titon", "prototype", "lodash", "underscore"],
@@ -15,6 +15,10 @@
         "name": "Miles Johnson",
         "url": "http://milesj.me"
     },
+    "contributors": [{
+        "name": "Matt Browne",
+        "url": "https://github.com/mbrowne"
+    }],
     "repository": {
         "type": "git",
         "url": "https://github.com/titon/probe"
