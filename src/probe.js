@@ -9,7 +9,8 @@
 
     var vendor,
         slice = Array.prototype.slice,
-        isNode = (typeof module !== 'undefined' && module.exports);
+        isNode = (typeof module !== 'undefined' && module.exports),
+        methodPrefix = '_';  //prefix used for methods added to native prototypes
 
     /**
      * Loop over each collection and extend the prototypes.
@@ -29,14 +30,14 @@
 
                 // Skip if the function already exists on the prototype
                 // We don't wont to cause collisions with built-ins or user defined
-                if (!vendor[func] || proto[func] || proto.prototype[func]) {
+                if (!vendor[func] || proto[methodPrefix + func] || proto.prototype[methodPrefix + func]) {
                     continue;
                 }
 
                 // Objects can only use static methods
                 // Applying to the prototype disrupts object literals
                 if (proto === Object) {
-                    proto[func] = vendor[func];
+                    proto[methodPrefix + func] = vendor[func];
                 } else {
                     extendPrototype.call(this, vendor, proto, func);
                 }
@@ -53,7 +54,7 @@
      * @param {Function} func
      */
     function extendPrototype(vendor, proto, func) {
-        proto.prototype[func] = function() {
+        proto.prototype[methodPrefix + func] = function() {
             var args = slice.call(arguments) || [];
                 args.unshift(this);
 
@@ -78,10 +79,12 @@
     if (isNode) {
         exports.mapPrototypes = mapPrototypes;
         exports.extendPrototype = extendPrototype;
+        exports.methodPrefix = methodPrefix;
     } else {
         root.Probe = {
             mapPrototypes: mapPrototypes,
-            extendPrototype: extendPrototype
+            extendPrototype: extendPrototype,
+            methodPrefix: methodPrefix
         };
     }
 

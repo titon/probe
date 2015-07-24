@@ -14,13 +14,13 @@ describe('Underscore.String', function() {
     }
 
     it('should apply Underscore.String functions to the natives', function() {
-        expect(String.prototype.swapCase).to.be.defined;
+        expect(String.prototype._swapCase).to.be.defined;
     });
 
     it('should allow for chaining', function() {
-        var test = 'Titon Probe'.swapCase().insert(6, '- ');
+        var test = 'Titon Probe'._swapCase()._insert(6, '- ');
 
         expect(test).to.equal('tITON - pROBE');
-        expect(test.classify()).to.equal('TitonProbe');
+        expect('titon-probe'._classify()).to.equal('TitonProbe');
     });
 });

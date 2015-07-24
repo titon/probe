@@ -18,11 +18,11 @@ describe('Underscore', function() {
     });
 
     it('should allow for chaining', function() {
-        var test = [1, 2, 3].union([3, 4, 5]).filter(function(v) {
+        var test = [1, 2, 3]._union([3, 4, 5])._filter(function(v) {
             return v != 2;
         }).reverse();
 
         expect(test).to.deep.equal([5, 4, 3, 1]);
-        expect(test.last()).to.equal(1);
+        expect(test._last()).to.equal(1);
     });
 });

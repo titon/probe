@@ -11,8 +11,10 @@ _.uniq(_.flatten([1, 2, [2], 3, 2])); // => [1, 2, 3]
 To be written as:
 
 ```
-[1, 2, [2], 3, 2].flatten().uniq(); // => [1, 2, 3]
+[1, 2, [2], 3, 2]._flatten()._uniq(); // => [1, 2, 3]
 ```
+
+(Note: All non-native methods are prefixed with an underscore.)
 
 ### Using In Node.js ###
 
